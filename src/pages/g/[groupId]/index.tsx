@@ -1,15 +1,14 @@
-import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import Loading from "../../../components/Loading";
-import NavBar from "../../../components/NavBar";
-import { trpc } from "../../../utils/trpc";
+import type { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
+import Link from 'next/link'
+import Loading from '../../../components/Loading'
+import NavBar from '../../../components/NavBar'
+import { trpc } from '../../../utils/trpc'
 
 const Group: NextPage = () => {
   const session = useSession({ required: true })
 
-  if (session.status === "loading")
-    return <Loading />
+  if (session.status === 'loading') return <Loading />
 
   return (
     <main>
@@ -18,4 +17,4 @@ const Group: NextPage = () => {
   )
 }
 
-export default Group;
+export default Group

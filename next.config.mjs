@@ -1,4 +1,4 @@
-import { env } from "./src/env/server.mjs";
+import { env } from './src/env/server.mjs'
 
 /**
  * Don't be scared of the generics here.
@@ -9,7 +9,7 @@ import { env } from "./src/env/server.mjs";
  * @constraint {{import('next').NextConfig}}
  */
 function defineNextConfig(config) {
-  return config;
+  return config
 }
 
 export default defineNextConfig({
@@ -18,15 +18,15 @@ export default defineNextConfig({
   poweredByHeader: false,
   // Next.js i18n docs: https://nextjs.org/docs/advanced-features/i18n-routing
   i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
+    locales: ['en'],
+    defaultLocale: 'en'
   },
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "cdn.discordapp.com",
-      },
-    ],
-  },
-});
+        protocol: 'https',
+        hostname: 'cdn.discordapp.com'
+      }
+    ]
+  }
+})

@@ -1,12 +1,12 @@
-import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
-import Link from "next/link";
-import Loading from "../components/Loading";
-import NavBar from "../components/NavBar";
-import { trpc } from "../utils/trpc";
+import type { NextPage } from 'next'
+import { useSession } from 'next-auth/react'
+import Link from 'next/link'
+import Loading from '../components/Loading'
+import NavBar from '../components/NavBar'
+import { trpc } from '../utils/trpc'
 
 const GroupList = () => {
-  const groupList = trpc.useQuery(["groups.listGroups"]);
+  const groupList = trpc.useQuery(['groups.listGroups'])
 
   return (
     <ul>
@@ -22,8 +22,7 @@ const GroupList = () => {
 const Groups: NextPage = () => {
   const session = useSession({ required: true })
 
-  if (session.status === "loading")
-    return <Loading />
+  if (session.status === 'loading') return <Loading />
 
   return (
     <main>
@@ -33,4 +32,4 @@ const Groups: NextPage = () => {
   )
 }
 
-export default Groups;
+export default Groups

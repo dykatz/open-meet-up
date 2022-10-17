@@ -1,30 +1,30 @@
-import { z } from "zod";
-import { createProtectedRouter } from "./context";
-import { prisma } from "../db/client";
-import { MembershipRole } from "@prisma/client";
+import { MembershipRole } from '@prisma/client'
+import { z } from 'zod'
+import { createProtectedRouter } from './context'
+import { prisma } from '../db/client'
 
 const groupsRouter = createProtectedRouter()
-  .query("getGroup", {
+  .query('getGroup', {
     input: z.string().cuid(),
     async resolve({ ctx, input }) {
       return prisma.group.findFirstOrThrow({
         where: {
-          id: input,
+          id: input
         },
         include: {
           comments: {
-            take: 10,
+            take: 10
           },
           memberships: {
-            take: 5,
-          },
+            take: 5
+          }
         }
-      });
-    },
+      })
+    }
   })
-  .query("listGroups", {
+  .query('listGroups', {
     resolve({ ctx }) {
-      const userId = ctx.session.user.id;
+      const userId = ctx.session.user.id
       return prisma.membership.findMany({
         where: {
           userId
@@ -34,35 +34,35 @@ const groupsRouter = createProtectedRouter()
             select: {
               id: true,
               name: true,
-              description: true,
-            },
-          },
-        },
-      });
-    },
+              description: true
+            }
+          }
+        }
+      })
+    }
   })
-  .mutation("createGroup", {
+  .mutation('createGroup', {
     input: z.object({
       name: z.string(),
       description: z.string(),
-      location: z.string(),
+      location: z.string()
     }),
     async resolve({ ctx, input }) {
       const newGroup = await prisma.group.create({
         data: {
           name: input.name,
-          description: input.description,
+          description: input.description
         }
-      });
+      })
       await prisma.membership.create({
         data: {
           groupId: newGroup.id,
           userId: ctx.session.user.id,
-          role: MembershipRole.Admin,
-        },
-      });
-      return {groupId: newGroup.id};
-    },
-  });
+          role: MembershipRole.Admin
+        }
+      })
+      return { groupId: newGroup.id }
+    }
+  })
 
-export default groupsRouter;
+export default groupsRouter
