@@ -64,9 +64,10 @@ model VerificationToken {
 }
 
 model Group {
-    id          String       @id @default(cuid())
+    id          String         @id @default(cuid())
     name        String
     description String
+    location    String
     banner      String?
     memberships Membership[]
     comments    GroupComment[]
@@ -106,7 +107,7 @@ model GroupComment {
 }
 
 model Event {
-    id           String        @id @default(cuid())
+    id           String         @id @default(cuid())
     name         String
     description  String
     location     String
@@ -118,11 +119,11 @@ model Event {
 }
 
 model Reservation {
-    userId   String
-    user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-    eventId  String
-    event    Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
-    date     DateTime @default(now())
+    userId  String
+    user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+    eventId String
+    event   Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+    date    DateTime @default(now())
 
     @@id([userId, eventId])
 }
@@ -142,12 +143,12 @@ model EventComment {
 }
 
 model EventPhoto {
-    id       String   @id @default(cuid())
+    id       String             @id @default(cuid())
     eventId  String
-    event    Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+    event    Event              @relation(fields: [eventId], references: [id], onDelete: Cascade)
     userId   String?
-    user     User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-    uploaded DateTime @default(now())
+    user     User?              @relation(fields: [userId], references: [id], onDelete: SetNull)
+    uploaded DateTime           @default(now())
     image    String
     alt      String?
     people   EventPhotoPerson[]

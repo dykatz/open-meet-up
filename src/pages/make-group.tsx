@@ -37,42 +37,50 @@ const GroupForm = () => {
   )
 
   return (
-    <form className='form-control' onSubmit={handleSubmit}>
-      <label className='label' htmlFor={nameId}>
-        <span className='label-text'>Name:</span>
-      </label>
-      <input
-        className='input input-bordered'
-        type='text'
-        id={nameId}
-        value={name}
-        onChange={e => setName(e.currentTarget.value)}
-      />
+    <div className='card m-6 bg-base-200 shadow-xl'>
+      <div className='card-body'>
+        <h2 className='card-title'>New Group</h2>
+        <form className='form-control' onSubmit={handleSubmit}>
+          <label className='label' htmlFor={nameId}>
+            <span className='label-text'>Name:</span>
+          </label>
+          <input
+            className='input input-bordered'
+            type='text'
+            id={nameId}
+            value={name}
+            onChange={e => setName(e.currentTarget.value)}
+          />
 
-      <label className='label' htmlFor={descriptionId}>
-        <span className='label-text'>Description:</span>
-      </label>
-      <input
-        className='input input-bordered'
-        type='text'
-        id={descriptionId}
-        value={description}
-        onChange={e => setDescription(e.currentTarget.value)}
-      />
+          <label className='label' htmlFor={descriptionId}>
+            <span className='label-text'>Description:</span>
+          </label>
+          <input
+            className='input input-bordered'
+            type='text'
+            id={descriptionId}
+            value={description}
+            onChange={e => setDescription(e.currentTarget.value)}
+          />
 
-      <label className='label' htmlFor={locationId}>
-        <span className='label-text'>Location:</span>
-      </label>
-      <input
-        className='input input-bordered'
-        type='text'
-        id={locationId}
-        value={location}
-        onChange={e => setLocation(e.currentTarget.value)}
-      />
+          <label className='label' htmlFor={locationId}>
+            <span className='label-text'>Location:</span>
+          </label>
+          <input
+            className='input input-bordered'
+            type='text'
+            id={locationId}
+            value={location}
+            onChange={e => setLocation(e.currentTarget.value)}
+          />
+          <br />
 
-      <input className='btn btn-primary' type='submit' />
-    </form>
+          <div className='card-actions justify-end'>
+            <input className='btn btn-primary' type='submit' />
+          </div>
+        </form>
+      </div>
+    </div>
   )
 }
 
@@ -84,8 +92,6 @@ const MakeGroup: NextPage = () => {
   return (
     <main>
       <NavBar session={session.data} />
-      <h1>New Group</h1>
-      <hr />
       <GroupForm />
     </main>
   )
