@@ -8,19 +8,37 @@ const groupsRouter = createProtectedRouter()
   .query('getGroup', {
     input: z.string().cuid(),
     async resolve({ ctx, input }) {
-      return prisma.group.findFirstOrThrow({
+      const group = await prisma.group.findFirstOrThrow({
         where: {
           id: input
         },
         include: {
           comments: {
-            take: 10
+            take: 5,
+            where: {
+              approved: true
+            },
+            include: {
+              user: {}
+            }
           },
           memberships: {
+            take: 5,
+            include: {
+              user: {}
+            }
+          },
+          events: {
             take: 5
           }
         }
       })
+      const membershipCount = await prisma.membership.count({
+        where: {
+          groupId: input
+        }
+      })
+      return { ...group, membershipCount }
     }
   })
   .query('listGroups', {

@@ -71,6 +71,7 @@ model Group {
     banner      String?
     memberships Membership[]
     comments    GroupComment[]
+    events      Event[]
     bannedUsers UserBan[]
 }
 
@@ -108,6 +109,8 @@ model GroupComment {
 
 model Event {
     id           String         @id @default(cuid())
+    groupId      String
+    group        Group          @relation(fields: [groupId], references: [id], onDelete: Cascade)
     name         String
     description  String
     location     String
@@ -184,9 +187,10 @@ model UserBlock {
 
 model UserBan {
     groupId String
-    group   Group  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+    group   Group   @relation(fields: [groupId], references: [id], onDelete: Cascade)
     userId  String
-    user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+    user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    reason  String?
 
     @@id([groupId, userId])
 }

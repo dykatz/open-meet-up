@@ -39,12 +39,6 @@ const NavBar = ({ session }: { session: Session }) => (
             <Link href='/groups'>Groups</Link>
           </li>
           <li>
-            <Link href='/make-event'>Make Event</Link>
-          </li>
-          <li>
-            <Link href='/events'>Events</Link>
-          </li>
-          <li>
             <Link href='/chat'>Conversations</Link>
           </li>
           <li>

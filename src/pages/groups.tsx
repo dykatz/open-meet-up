@@ -33,6 +33,7 @@ const Group = ({ group, refetch }: { group: GroupWithRole; refetch: any }) => {
         <h2 className='card-title'>
           <Link href={`/g/${group.id}`}>{group.name}</Link>
         </h2>
+        <p>{group.location}</p>
         <p>{group.description}</p>
         <div className='card-actions justify-end'>
           {group.role === MembershipRole.Admin && (
