@@ -1,14 +1,29 @@
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
+import Head from 'next/head'
 import Loading from '../components/Loading'
 import NavBar from '../components/NavBar'
 
 const Events: NextPage = () => {
   const session = useSession({ required: true })
 
-  if (session.status === 'loading') return <Loading />
+  return (
+    <>
+      <Head>
+        <title>Events - TouchGrass</title>
+        <meta name='description' content='Events from your groups' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
 
-  return <NavBar session={session.data} />
+      {session.status === 'loading' ? (
+        <Loading />
+      ) : (
+        <main>
+          <NavBar session={session.data} />
+        </main>
+      )}
+    </>
+  )
 }
 
 export default Events

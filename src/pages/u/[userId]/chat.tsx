@@ -1,14 +1,67 @@
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
-import Loading from '../../../components/Loading'
+import Error from 'next/error'
+import Head from 'next/head'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import LoadingUser from '../../../components/LoadingUser'
 import NavBar from '../../../components/NavBar'
+import { trpc } from '../../../utils/trpc'
 
-const Conversation: NextPage = () => {
-  const session = useSession({ required: true })
+const NoUser = () => <Error statusCode={404} title='No User Found' />
 
-  if (session.status === 'loading') return <Loading />
+const UserChatCard = ({ id }: { id: string }) => {
+  return (
+    <>
+      <Head>
+        <title>Chat - ... - TouchGrass</title>
+        <meta name='description' content='...' />
+      </Head>
 
-  return <NavBar session={session.data} />
+      <div className='card m-6 bg-base-200 shadow-xl'>
+        <div className='card-body'>
+          <div className='grid grid-cols-2 space-x-6'>
+            <Link href={`/u/${id}`}>
+              <div className='btn'>Profile</div>
+            </Link>
+            <Link href='/chat'>
+              <div className='btn'>Chats</div>
+            </Link>
+          </div>
+          <h2 className='card-title'>Messages</h2>
+        </div>
+      </div>
+    </>
+  )
 }
 
-export default Conversation
+const UserChat: NextPage = () => {
+  const router = useRouter()
+  const session = useSession({ required: true })
+
+  const { userId } = router.query
+
+  return (
+    <>
+      <Head>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+
+      {session.status === 'loading' ? (
+        <LoadingUser />
+      ) : (
+        <main>
+          <NavBar session={session.data} />
+
+          {userId === undefined || Array.isArray(userId) ? (
+            <NoUser />
+          ) : (
+            <UserChatCard id={userId} />
+          )}
+        </main>
+      )}
+    </>
+  )
+}
+
+export default UserChat

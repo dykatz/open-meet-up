@@ -1,13 +1,12 @@
 import type { NextPage } from 'next'
-import Head from 'next/head'
-import Link from 'next/link'
 import type { Session } from 'next-auth'
 import { useSession } from 'next-auth/react'
+import Head from 'next/head'
+import Link from 'next/link'
 import Loading from '../components/Loading'
 import NavBar from '../components/NavBar'
-import { trpc } from '../utils/trpc'
 
-const UnauthHome = () => (
+const UnauthorizedHome = () => (
   <main className='hero min-h-screen bg-base-200'>
     <div className='hero-content text-center'>
       <div className='max-w-md'>
@@ -42,7 +41,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>OpenMeetUp</title>
+        <title>TouchGrass</title>
         <meta
           name='description'
           content='A one-stop portal for organizing groups and scheduling events'
@@ -55,7 +54,7 @@ const Home: NextPage = () => {
       ) : session.status === 'authenticated' ? (
         <RealHome session={session.data} />
       ) : (
-        <UnauthHome />
+        <UnauthorizedHome />
       )}
     </>
   )

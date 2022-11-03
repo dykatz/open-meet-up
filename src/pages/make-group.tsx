@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
-import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
+import Head from 'next/head'
+import { useRouter } from 'next/router'
 import { FormEvent, useCallback, useId, useState } from 'react'
 import Loading from '../components/Loading'
 import NavBar from '../components/NavBar'
@@ -87,13 +88,23 @@ const GroupForm = () => {
 const MakeGroup: NextPage = () => {
   const session = useSession({ required: true })
 
-  if (session.status === 'loading') return <Loading />
-
   return (
-    <main>
-      <NavBar session={session.data} />
-      <GroupForm />
-    </main>
+    <>
+      <Head>
+        <title>Make Group - TouchGrass</title>
+        <meta name='description' content='Make a new group' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+
+      {session.status === 'loading' ? (
+        <Loading />
+      ) : (
+        <main>
+          <NavBar session={session.data} />
+          <GroupForm />
+        </main>
+      )}
+    </>
   )
 }
 

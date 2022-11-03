@@ -6,7 +6,7 @@ const NavBar = ({ session }: { session: Session }) => (
   <nav className='navbar bg-base-100'>
     <div className='flex-1'>
       <div className='btn btn-ghost text-xl normal-case'>
-        <Link href='/'>OpenMeetUp</Link>
+        <Link href='/'>TouchGrass</Link>
       </div>
     </div>
     <div className='flex-none gap-2'>

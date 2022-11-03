@@ -1,6 +1,7 @@
 import { MembershipRole } from '@prisma/client'
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback } from 'react'
@@ -83,13 +84,23 @@ const GroupList = () => {
 const Groups: NextPage = () => {
   const session = useSession({ required: true })
 
-  if (session.status === 'loading') return <Loading />
-
   return (
-    <main>
-      <NavBar session={session.data} />
-      <GroupList />
-    </main>
+    <>
+      <Head>
+        <title>Groups - TouchGrass</title>
+        <meta name='description' content='Groups that you are a member of' />
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+
+      {session.status === 'loading' ? (
+        <Loading />
+      ) : (
+        <main>
+          <NavBar session={session.data} />
+          <GroupList />
+        </main>
+      )}
+    </>
   )
 }
 

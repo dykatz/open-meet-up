@@ -4,37 +4,35 @@ import Error from 'next/error'
 import Head from 'next/head'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import LoadingGroup from '../../../components/LoadingGroup'
+import LoadingEvent from '../../../components/LoadingEvent'
 import NavBar from '../../../components/NavBar'
 import { trpc } from '../../../utils/trpc'
 
-const NoGroup = () => <Error statusCode={404} title='No Group Found' />
+const NoEvent = () => <Error statusCode={404} title='No Event Found' />
 
-const GroupCommentsCard = ({ id }: { id: string }) => {
+const EventCommentsCard = ({ id }: { id: string }) => {
   return (
     <>
       <Head>
         <title>Comments - ... - TouchGrass</title>
-        <meta name='description' content='Comments on the ... group' />
+        <meta name='description' content='Comments on the ... event' />
       </Head>
 
       <div className='card m-6 bg-base-200 shadow-xl'>
-        <div className='card-body'>
-          <Link href={`/g/${id}`}>
-            <div className='btn'>Back</div>
-          </Link>
-          <h2 className='card-title'>Comments</h2>
-        </div>
+        <Link href={`/e/${id}`}>
+          <div className='btn'>Back</div>
+        </Link>
+        <h2 className='card-title'>Comments</h2>
       </div>
     </>
   )
 }
 
-const GroupComments: NextPage = () => {
+const EventComments: NextPage = () => {
   const router = useRouter()
   const session = useSession({ required: true })
 
-  const { groupId } = router.query
+  const { eventId } = router.query
 
   return (
     <>
@@ -43,15 +41,15 @@ const GroupComments: NextPage = () => {
       </Head>
 
       {session.status === 'loading' ? (
-        <LoadingGroup />
+        <LoadingEvent />
       ) : (
         <main>
           <NavBar session={session.data} />
 
-          {groupId === undefined || Array.isArray(groupId) ? (
-            <NoGroup />
+          {eventId === undefined || Array.isArray(eventId) ? (
+            <NoEvent />
           ) : (
-            <GroupCommentsCard id={groupId} />
+            <EventCommentsCard id={eventId} />
           )}
         </main>
       )}
@@ -59,4 +57,4 @@ const GroupComments: NextPage = () => {
   )
 }
 
-export default GroupComments
+export default EventComments

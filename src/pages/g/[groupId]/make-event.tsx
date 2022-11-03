@@ -1,22 +1,62 @@
 import type { NextPage } from 'next'
 import { useSession } from 'next-auth/react'
+import Error from 'next/error'
+import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
-import Loading from '../../../components/Loading'
+import LoadingGroup from '../../../components/LoadingGroup'
 import NavBar from '../../../components/NavBar'
+import { trpc } from '../../../utils/trpc'
 
-const MakeEvent: NextPage = () => {
-  const router = useRouter()
-  const { groupId } = router.query
+const NoGroup = () => <Error statusCode={404} title='No Group Found' />
 
-  const session = useSession({ required: true })
-
-  if (session.status === 'loading') return <Loading />
-
+const GroupMakeEventCard = ({ id }: { id: string }) => {
   return (
-    <main>
-      <NavBar session={session.data} />
-    </main>
+    <>
+      <Head>
+        <title>Make Event - ... - TouchGrass</title>
+        <meta name='description' content='Make a new event for the ... group' />
+      </Head>
+
+      <div className='card m-6 bg-base-200 shadow-xl'>
+        <div className='card-body'>
+          <Link href={`/g/${id}`}>
+            <div className='btn'>Back</div>
+          </Link>
+          <h2 className='card-title'>Make Event</h2>
+        </div>
+      </div>
+    </>
   )
 }
 
-export default MakeEvent
+const GroupMakeEvent: NextPage = () => {
+  const router = useRouter()
+  const session = useSession({ required: true })
+
+  const { groupId } = router.query
+
+  return (
+    <>
+      <Head>
+        <link rel='icon' href='/favicon.ico' />
+      </Head>
+
+      {session.status === 'loading' ? (
+        <LoadingGroup />
+      ) : (
+        <main>
+          <NavBar session={session.data} />
+
+          {groupId === undefined || Array.isArray(groupId) ? (
+            <NoGroup />
+          ) : (
+            <GroupMakeEventCard id={groupId} />
+          )}
+        </main>
+      )}
+    </>
+  )
+}
+
+export default GroupMakeEvent
