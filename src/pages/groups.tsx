@@ -89,7 +89,6 @@ const Groups: NextPage = () => {
       <Head>
         <title>Groups - TouchGrass</title>
         <meta name='description' content='Groups that you are a member of' />
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       {session.status === 'loading' ? (

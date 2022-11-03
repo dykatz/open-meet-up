@@ -12,7 +12,6 @@ const Events: NextPage = () => {
       <Head>
         <title>Events - TouchGrass</title>
         <meta name='description' content='Events from your groups' />
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       {session.status === 'loading' ? (

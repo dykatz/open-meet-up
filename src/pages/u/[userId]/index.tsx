@@ -29,26 +29,18 @@ const User: NextPage = () => {
 
   const { userId } = router.query
 
+  if (session.status === 'loading') return <LoadingUser />
+
   return (
-    <>
-      <Head>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+    <main>
+      <NavBar session={session.data} />
 
-      {session.status === 'loading' ? (
-        <LoadingUser />
+      {userId === undefined || Array.isArray(userId) ? (
+        <NoUser />
       ) : (
-        <main>
-          <NavBar session={session.data} />
-
-          {userId === undefined || Array.isArray(userId) ? (
-            <NoUser />
-          ) : (
-            <UserCard id={userId} />
-          )}
-        </main>
+        <UserCard id={userId} />
       )}
-    </>
+    </main>
   )
 }
 

@@ -12,7 +12,6 @@ const Chat: NextPage = () => {
       <Head>
         <title>Chat - TouchGrass</title>
         <meta name='description' content='Chat with other members' />
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       {session.status === 'loading' ? (

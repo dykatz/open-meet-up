@@ -36,26 +36,18 @@ const GroupMakeEvent: NextPage = () => {
 
   const { groupId } = router.query
 
+  if (session.status === 'loading') return <LoadingGroup />
+
   return (
-    <>
-      <Head>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+    <main>
+      <NavBar session={session.data} />
 
-      {session.status === 'loading' ? (
-        <LoadingGroup />
+      {groupId === undefined || Array.isArray(groupId) ? (
+        <NoGroup />
       ) : (
-        <main>
-          <NavBar session={session.data} />
-
-          {groupId === undefined || Array.isArray(groupId) ? (
-            <NoGroup />
-          ) : (
-            <GroupMakeEventCard id={groupId} />
-          )}
-        </main>
+        <GroupMakeEventCard id={groupId} />
       )}
-    </>
+    </main>
   )
 }
 

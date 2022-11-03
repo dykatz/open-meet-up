@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/grass.png" alt="grass" width="150" />
+</p>
+
 # TouchGrass
 
 A free and open source web application for finding, joining and managing groups of people.

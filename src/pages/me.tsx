@@ -12,7 +12,6 @@ const Me: NextPage = () => {
       <Head>
         <title>My Profile - TouchGrass</title>
         <meta name='description' content='Modify your profile settings' />
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       {session.status === 'loading' ? (

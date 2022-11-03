@@ -34,26 +34,18 @@ const EventComments: NextPage = () => {
 
   const { eventId } = router.query
 
+  if (session.status === 'loading') return <LoadingEvent />
+
   return (
-    <>
-      <Head>
-        <link rel='icon' href='/favicon.ico' />
-      </Head>
+    <main>
+      <NavBar session={session.data} />
 
-      {session.status === 'loading' ? (
-        <LoadingEvent />
+      {eventId === undefined || Array.isArray(eventId) ? (
+        <NoEvent />
       ) : (
-        <main>
-          <NavBar session={session.data} />
-
-          {eventId === undefined || Array.isArray(eventId) ? (
-            <NoEvent />
-          ) : (
-            <EventCommentsCard id={eventId} />
-          )}
-        </main>
+        <EventCommentsCard id={eventId} />
       )}
-    </>
+    </main>
   )
 }
 

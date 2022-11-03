@@ -93,7 +93,6 @@ const MakeGroup: NextPage = () => {
       <Head>
         <title>Make Group - TouchGrass</title>
         <meta name='description' content='Make a new group' />
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       {session.status === 'loading' ? (

@@ -46,7 +46,6 @@ const Home: NextPage = () => {
           name='description'
           content='A one-stop portal for organizing groups and scheduling events'
         />
-        <link rel='icon' href='/favicon.ico' />
       </Head>
 
       {session.status === 'loading' ? (
